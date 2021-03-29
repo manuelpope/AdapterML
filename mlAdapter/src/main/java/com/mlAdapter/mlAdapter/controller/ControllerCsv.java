@@ -43,12 +43,12 @@ private CsvTransformationServices csvTransformationServices;
      * @throws IOException the io exception
      */
     @PostMapping("/addCsv")
-    public void createNewSimpleDataProject(@RequestParam("file")  MultipartFile file, @RequestParam("name") String name) throws IOException {
+    public void createNewSimpleDataProject(@RequestParam("file")  MultipartFile file, @RequestParam("name") String name, @RequestParam("target") String target) throws IOException {
 
 
         Optional.ofNullable(file).filter(s -> !s.isEmpty()).map(r -> {
             try {
-                csvTransformationServices.projectSave(r.getInputStream(),name);
+                csvTransformationServices.projectSave(r.getInputStream(),name,target);
                 return ResponseEntity.status(HttpStatus.OK).build();
 
 

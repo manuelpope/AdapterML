@@ -20,7 +20,7 @@ public class CsvTransformationServices
     @Autowired
     private MongoProjectDaoI dao;
 
-    public void projectSave(InputStream inputStream, String name) throws IOException {
+    public void projectSave(InputStream inputStream, String name, String target) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
@@ -35,6 +35,7 @@ public class CsvTransformationServices
         project.setRecords(records);
         project.setDateInsert(new Date());
         project.setNameProject(name);
+        project.setColNameTarget(target);
         dao.insert(project);
 
 

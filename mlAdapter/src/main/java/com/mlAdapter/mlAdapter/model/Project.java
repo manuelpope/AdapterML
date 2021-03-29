@@ -24,5 +24,6 @@ public class Project {
     private String nameProject;
     private List<List<String>> records;
     private Date dateInsert;
+    private String colNameTarget;
 
 }
