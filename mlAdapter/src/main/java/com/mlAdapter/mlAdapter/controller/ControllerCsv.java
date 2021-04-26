@@ -62,7 +62,25 @@ private CsvTransformationServices csvTransformationServices;
 
     }
 
+    @PostMapping("/addCsvCleaned")
+    public void createNewCleanedDataProject(@RequestParam("file")  MultipartFile file, @RequestParam("name") String name, @RequestParam("target") String target) throws IOException {
 
+
+        Optional.ofNullable(file).filter(s -> !s.isEmpty()).map(r -> {
+            try {
+                csvTransformationServices.projectSaveCleaned(r.getInputStream(),name,target);
+                return ResponseEntity.status(HttpStatus.OK).build();
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
+
+        });
+
+
+    }
 
 
 }
