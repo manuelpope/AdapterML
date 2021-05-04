@@ -10,15 +10,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
 
 @Service
 @NoArgsConstructor
 @AllArgsConstructor
 @Slf4j
-public class CsvTransformationServices
-{
+public class CsvTransformationServices {
     @Autowired
     private MongoProjectDaoI dao;
     @Autowired
@@ -29,13 +34,13 @@ public class CsvTransformationServices
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
         List<List<String>> records = new ArrayList<>();
-            try (Scanner scanner = new Scanner(br);) {
+        try (Scanner scanner = new Scanner(br);) {
 
-                while (scanner.hasNextLine()) {
+            while (scanner.hasNextLine()) {
                 records.add(getRecordFromLine(scanner.nextLine()));
             }
         }
-        Project project= new Project();
+        Project project = new Project();
         project.setRecords(records);
         project.setDateInsert(new Date());
         project.setNameProject(name);
@@ -56,7 +61,7 @@ public class CsvTransformationServices
                 records.add(getRecordFromLine(scanner.nextLine()));
             }
         }
-        ProjectCleaned project= new ProjectCleaned();
+        ProjectCleaned project = new ProjectCleaned();
         project.setRecords(records);
         project.setDateInsert(new Date());
         project.setNameProject(name);
